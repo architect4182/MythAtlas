@@ -8,7 +8,7 @@ import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.j
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import IconSprite from './IconSprite';
 
-/* 5. Data (verbatim) */
+/* 5. Data (verbatim + enriched scholarly additions) */
 const DINOS = [
   {
     id: 'phoenix', no: 'MA-001', era: [-800, -430], eraLabel: 'Herodotus, 430 BC', scale: '1 m',
@@ -29,6 +29,29 @@ const DINOS = [
     closeup: 'Each tail plume ends in a pale gold tip, the only part said to survive the fire.',
     lens: '55% 25%',
     feature: ['A fire you can outlive.', 'Crimson, gold and patient. The bird that refuses to end.'],
+    taxonomy: [
+      ['Kingdom', 'Mythalia Arcana'],
+      ['Order', 'Pyronithes (Fire Avians)'],
+      ['Family', 'Phoenicidae'],
+      ['Preservation', 'Crystalline ash residue in reliquary urn'],
+      ['Threat Class', 'Tier II · Sacred & Solitary']
+    ],
+    quote: {
+      text: 'They have also another sacred bird called the Phoenix, which I myself have not seen, except in pictures... His plumage is partly red and partly golden, while in shape and size he is very nearly like an eagle. He comes once in five hundred years, when his father dies.',
+      author: 'Herodotus',
+      source: 'The Histories, Book II (Euterpe)',
+      year: 'c. 430 BC'
+    },
+    peculiarities: [
+      { title: 'Nidus Incendii', desc: 'Constructs its pyre of cassia, spikenard, and cinnamon twigs, reaching spontaneous thermal equilibrium upon the vernal equinox.' },
+      { title: 'Cinereous Metamorphosis', desc: 'Tissue does not decay; it vitrifies into a golden ovoid core that reconstitutes within three solar cycles.' },
+      { title: 'Cranial Plume Corona', desc: 'Twelve iridescent feathers that refract solar ultraviolet light, producing an optical halo reported by Heliopolitan solar priests.' }
+    ],
+    sightings: [
+      { year: '430 BC', place: 'City of the Sun (Heliopolis)', desc: 'Herodotus inspects temple murals and records priests’ sworn depositions.' },
+      { year: 'AD 34', place: 'Thebaid, Upper Egypt', desc: 'Imperial scouts dispatch parchment to Emperor Tiberius reporting an unnatural red aura over the desert.' },
+      { year: 'AD 800', place: 'Sinai Peninsula', desc: 'Monastic chronicles at St. Catherine record a golden avian ascending from a smoldering acacia grove.' }
+    ]
   },
   {
     id: 'kraken', no: 'MA-002', era: [1180, 1752], eraLabel: 'Pontoppidan, 1752', scale: '10 m',
@@ -49,7 +72,91 @@ const DINOS = [
     closeup: 'Suckers the width of a barrel lid, each ringed with a horn like a saw.',
     lens: '30% 45%',
     feature: ['An island with an appetite.', 'Eight arms, two tentacles and a thousand years of sailors’ tales.'],
+    taxonomy: [
+      ['Kingdom', 'Mythalia Arcana'],
+      ['Order', 'Bathytentacula (Abyssal Cephalopods)'],
+      ['Family', 'Architeuthidae Gigantea'],
+      ['Preservation', 'Desiccated sucker denticle segment in brine'],
+      ['Threat Class', 'Tier V · Maritime Cataclysm']
+    ],
+    quote: {
+      text: 'Its back or upper part, which seems to be in appearance about an English mile and a half in circumference, looks at first like a number of small islands surrounded by something that floats and fluctuates like sea-weeds... Here and there a larger rising is observed, like an island.',
+      author: 'Bishop Erik Pontoppidan',
+      source: 'The Natural History of Norway, Part II',
+      year: '1752'
+    },
+    peculiarities: [
+      { title: 'Siphon Vortex Discharge', desc: 'Ejects compressed benthic brine capable of creating whirlpools with a radius exceeding 200 fathoms.' },
+      { title: 'Chitinous Saw-Rings', desc: 'Each sucker holds a serrated horn ring with tensile strength capable of crushing reinforced oak hulls.' },
+      { title: 'Islandic Camouflage', desc: 'Dorsal epidermis mimics basalt rock formations, encrusted with dead barnacles and phosphorescent pelagic algae.' }
+    ],
+    sightings: [
+      { year: '1180', place: 'Off Trondheim, Norway', desc: 'King Sverre of Norway records in royal saga a seafaring terror that swallowed three longships.' },
+      { year: '1539', place: 'Scandinavian Waters', desc: 'Cartographer Olaus Magnus charts the Monstrum Maris Germanici on the historic Carta Marina.' },
+      { year: '1752', place: 'Diocese of Bergen', desc: 'Bishop Pontoppidan interviews fifty whalers and cod fishermen to formalize the species dossier.' }
+    ]
   },
+];
+
+const BESTIARY_ORDERS = [
+  {
+    id: 'phoenix',
+    order: 'Order Pyronithes',
+    title: 'Fire Birds & Solar Avians',
+    count: '6 Legends',
+    latin: 'Aves Pyrogenicae',
+    desc: 'Creatures born of fire, resin, and solar convergence. They reside at the liminal boundary between combustion and life.',
+    samples: 'Phoenix · Bennu · Simurgh · Huma',
+    icon: 'i-flame',
+    creatureIdx: 0
+  },
+  {
+    id: 'kraken',
+    order: 'Order Bathytentacula',
+    title: 'Abyssal Titans & Sea Monsters',
+    count: '14 Legends',
+    latin: 'Monstra Benthica',
+    desc: 'Colossal leviathans that dwell in abyssal trenches, disguised as reefs, shoals, or islands until ships venture close.',
+    samples: 'Kraken · Hafgufa · Aspidochelone · Leviathan',
+    icon: 'i-wave',
+    creatureIdx: 1
+  },
+  {
+    order: 'Order Serpentes Antiqui',
+    title: 'Draconic Lineages & Wyrms',
+    count: '22 Legends',
+    latin: 'Dracones Veteres',
+    desc: 'Primeval serpent-kings that guard planetary veins, hoarded precious metals, and sleeping under ancient mountain roots.',
+    samples: 'Fafnir · Ouroboros · Lindworm · Níðhöggr',
+    icon: 'i-claw'
+  },
+  {
+    order: 'Order Mixtura',
+    title: 'Chimeras & Compound Beasts',
+    count: '9 Legends',
+    latin: 'Bestiae Compositae',
+    desc: 'Anomalous biological syntheses created by ancient titan alchemy, combining venomous tails with lion and raptor frames.',
+    samples: 'Manticore · Chimera · Griffin · Cockatrice',
+    icon: 'i-skull'
+  },
+  {
+    order: 'Order Titanes',
+    title: 'Earth Giants & Lithic Beings',
+    count: '11 Legends',
+    latin: 'Entia Terrena',
+    desc: 'Colossi whose bone structure mimics granite mountain chains. Their footsteps cause volcanic rifts and earthquakes.',
+    samples: 'Jotnar · Gogmagog · Hekatonkheires · Enceladus',
+    icon: 'i-peak'
+  },
+  {
+    order: 'Order Praestigiae',
+    title: 'Tricksters & Metamorphic Spirits',
+    count: '8 Legends',
+    latin: 'Spiritus Illusorii',
+    desc: 'Creatures of pure liminal deception. They shift bone and fur into human forms to test mortal generosity and wit.',
+    samples: 'Kitsune · Tanuki · Anansi · Púca',
+    icon: 'i-mask'
+  }
 ];
 
 const LIGHT_PRESETS = {
@@ -73,6 +180,7 @@ export default function MythAtlas() {
   const [isDragging, setIsDragging] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
   const [zoomGoal, setZoomGoalState] = useState(1.0);
+  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
 
   const heroRef = useRef(null);
   const canvasRef = useRef(null);
@@ -473,7 +581,6 @@ export default function MythAtlas() {
 
     if (targetRig) {
       if (!targetRig.promise) {
-        // Will be loaded via loader in useEffect or triggered here
         targetRig.promise = new Promise(res => setTimeout(res, 50));
       }
       targetRig.promise.then(() => {
@@ -641,6 +748,17 @@ export default function MythAtlas() {
     setZoom(zoomGoalRef.current > 2.2 ? 1 : 2.6);
   };
 
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToHero = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   /* Era calculation */
   const eraFrom = currentDino.era[0];
   const eraTo = currentDino.era[1];
@@ -669,49 +787,63 @@ export default function MythAtlas() {
           </div>
           <ul className="nav">
             <li>
-              <button className="nav-btn" type="button">
+              <button className="nav-btn" type="button" onClick={scrollToHero}>
                 <svg className="ico"><use href="#i-home" /></svg>
                 <span className="text">Home</span>
               </button>
             </li>
             <li>
-              <button className="nav-btn" type="button" aria-current="page">
+              <button className="nav-btn" type="button" aria-current="page" onClick={scrollToHero}>
                 <svg className="ico"><use href="#i-star" /></svg>
                 <span className="text"><b>Featured</b></span>
               </button>
             </li>
             <li>
-              <button className="nav-btn" type="button" onClick={() => selectCreature(0)}>
+              <button
+                className="nav-btn"
+                type="button"
+                onClick={() => {
+                  selectCreature(0);
+                  scrollToHero();
+                }}
+              >
                 <svg className="ico"><use href="#i-flame" /></svg>
                 <span className="text">Fire birds<small>6 legends</small></span>
               </button>
             </li>
             <li>
-              <button className="nav-btn" type="button" onClick={() => selectCreature(1)}>
+              <button
+                className="nav-btn"
+                type="button"
+                onClick={() => {
+                  selectCreature(1);
+                  scrollToHero();
+                }}
+              >
                 <svg className="ico"><use href="#i-wave" /></svg>
                 <span className="text">Sea monsters<small>14 legends</small></span>
               </button>
             </li>
             <li>
-              <button className="nav-btn" type="button">
+              <button className="nav-btn" type="button" onClick={() => scrollToSection('bestiary')}>
                 <svg className="ico"><use href="#i-claw" /></svg>
                 <span className="text">Dragons<small>22 legends</small></span>
               </button>
             </li>
             <li>
-              <button className="nav-btn" type="button">
+              <button className="nav-btn" type="button" onClick={() => scrollToSection('bestiary')}>
                 <svg className="ico"><use href="#i-skull" /></svg>
                 <span className="text">Chimeras<small>9 legends</small></span>
               </button>
             </li>
             <li>
-              <button className="nav-btn" type="button">
+              <button className="nav-btn" type="button" onClick={() => scrollToSection('bestiary')}>
                 <svg className="ico"><use href="#i-peak" /></svg>
                 <span className="text">Giants<small>11 legends</small></span>
               </button>
             </li>
             <li>
-              <button className="nav-btn" type="button">
+              <button className="nav-btn" type="button" onClick={() => scrollToSection('bestiary')}>
                 <svg className="ico"><use href="#i-mask" /></svg>
                 <span className="text">Tricksters<small>8 legends</small></span>
               </button>
@@ -787,7 +919,7 @@ export default function MythAtlas() {
             onPointerCancel={handlePointerUp}
             onWheel={handleWheel}
             onDoubleClick={(e) => {
-              if (e.target.closest('button, a, input, .rail, .turn')) return;
+              if (e.target.closest('button, a, input, .rail, .turn, .scroll-cue')) return;
               triggerReset();
             }}
             onKeyDown={handleStageKeyDown}
@@ -880,6 +1012,17 @@ export default function MythAtlas() {
 
             <div className="scale" id="scale">{currentDino.scale}</div>
             <p className="caption" id="caption">{currentDino.caption}</p>
+
+            <a
+              href="#bestiary"
+              className="scroll-cue"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('bestiary');
+              }}
+            >
+              Explore Compendium ↓
+            </a>
           </div>
         </section>
 
@@ -907,7 +1050,7 @@ export default function MythAtlas() {
                 }}
               />
             </label>
-            <button className="iconbtn" type="button" aria-label="Notifications">
+            <button className="iconbtn" type="button" aria-label="Notifications" onClick={() => alert("Cryptozoology Gazette: Issue 12 is now catalogued.")}>
               <svg className="ico"><use href="#i-bell" /></svg>
             </button>
             <button className="iconbtn" type="button" aria-label="Account">
@@ -951,6 +1094,7 @@ export default function MythAtlas() {
                   <span>Modern</span>
                 </div>
               </div>
+
               <h2 style={{ '--i': 5 }}>Field notes</h2>
               <dl className="traits" style={{ '--i': 6 }}>
                 {currentDino.traits.map(([ico, dt, dd]) => (
@@ -961,12 +1105,54 @@ export default function MythAtlas() {
                   </div>
                 ))}
               </dl>
+
               <h2 style={{ '--i': 7 }}>Haunts</h2>
               <div className="habitat" style={{ '--i': 8 }}>
                 <svg className="ico"><use href="#t-reed" /></svg>
                 <span>{currentDino.habitat}</span>
               </div>
-              <div className="closeup-wrap" style={{ '--i': 9 }}>
+
+              {/* Enhanced Scholarly Section 1: Taxonomy Table */}
+              <h2 style={{ '--i': 9 }}>Taxonomic Registry</h2>
+              <div className="taxonomy-table" style={{ '--i': 9 }}>
+                {currentDino.taxonomy.map(([k, v]) => (
+                  <div className="tax-row" key={k}>
+                    <span className="tax-k">{k}</span>
+                    <span className="tax-v">{v}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Enhanced Scholarly Section 2: Historical Excerpt */}
+              <h2 style={{ '--i': 10 }}>Primary Source Testimony</h2>
+              <div className="quote-block" style={{ '--i': 10 }}>
+                <blockquote>"{currentDino.quote.text}"</blockquote>
+                <cite>— {currentDino.quote.author}, {currentDino.quote.source} ({currentDino.quote.year})</cite>
+              </div>
+
+              {/* Enhanced Scholarly Section 3: Anatomical Peculiarities */}
+              <h2 style={{ '--i': 11 }}>Anatomical Peculiarities</h2>
+              <ul className="peculiarities-list" style={{ '--i': 11 }}>
+                {currentDino.peculiarities.map((item) => (
+                  <li className="peculiarity-item" key={item.title}>
+                    <strong>{item.title}:</strong> {item.desc}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Enhanced Scholarly Section 4: Chronological Sightings */}
+              <h2 style={{ '--i': 12 }}>Expedition Records</h2>
+              <div className="sightings-list" style={{ '--i': 12 }}>
+                {currentDino.sightings.map((s) => (
+                  <div className="sighting-row" key={s.year}>
+                    <span className="sighting-year">{s.year}</span>
+                    <span className="sighting-desc"><strong>{s.place}:</strong> {s.desc}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Closeup Lens */}
+              <div className="closeup-wrap" style={{ '--i': 13 }}>
                 <button
                   className="closeup"
                   id="closeup"
@@ -988,11 +1174,282 @@ export default function MythAtlas() {
                   <svg className="ico chev"><use href="#i-chev" /></svg>
                 </button>
               </div>
+
+              {/* Dossier Accession Seal */}
+              <div className="dossier-seal" style={{ '--i': 14 }}>
+                <div className="seal-icon">✦</div>
+                <div className="seal-text">
+                  Folio Registry No. {currentDino.no}<br />
+                  Verified by the Royal Academy of Cryptozoological Research
+                </div>
+              </div>
             </article>
           </div>
         </section>
       </main>
+
+      {/* =========================================================
+          EXTENDED FOLIO SECTIONS BELOW THE 3D HERO VIEWPORT
+          ========================================================= */}
+
+      {/* Section 1: The Bestiary Folios & Elemental Orders */}
+      <section className="folio-section" id="bestiary">
+        <span className="section-tag">Plate I · Systematic Compendium</span>
+        <h2 className="section-heading">The Elemental Orders of Cryptozoology</h2>
+        <p className="section-intro">
+          Before modern taxonomy formalized the animal kingdom, natural philosophers categorized legendary organisms according to elemental residency, barometric affinity, and mythological provenance. Explore the six primary orders below.
+        </p>
+
+        <div className="bestiary-grid">
+          {BESTIARY_ORDERS.map((item, idx) => (
+            <div className="bestiary-card" key={idx}>
+              <div className="bestiary-card-top">
+                <div className="bestiary-card-icon">
+                  <svg className="ico"><use href={`#${item.icon}`} /></svg>
+                </div>
+                <span className="bestiary-card-count">{item.count}</span>
+              </div>
+              <span className="section-tag" style={{ fontSize: '9px', marginBottom: '2px' }}>{item.order}</span>
+              <h3>{item.title}</h3>
+              <div className="latin-order">{item.latin}</div>
+              <p>{item.desc}</p>
+              <div className="bestiary-card-footer">
+                <span className="bestiary-card-samples">{item.samples}</span>
+                {item.creatureIdx !== undefined ? (
+                  <button
+                    className="card-action-btn"
+                    type="button"
+                    onClick={() => {
+                      selectCreature(item.creatureIdx);
+                      scrollToHero();
+                    }}
+                  >
+                    View 3D Specimen ↑
+                  </button>
+                ) : (
+                  <span className="card-action-btn" style={{ opacity: 0.6, cursor: 'default' }}>
+                    Archive Monograph
+                  </span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Section 2: Comparative Anatomy & Field Cryptobiology */}
+      <section className="folio-section" id="anatomy">
+        <span className="section-tag">Plate II · Comparative Osteology & Physiology</span>
+        <h2 className="section-heading">Anatomy of the Impossible</h2>
+        <p className="section-intro">
+          Observations recorded by antiquarian surgeons, alchemists, and desert naturalists examining legendary physical specimens throughout the classical and enlightenment eras.
+        </p>
+
+        <div className="anatomy-grid">
+          <div className="anatomy-card">
+            <span className="plate-num">Monograph 01</span>
+            <h4>Thermodynamics of Avian Pyrogenesis</h4>
+            <p>
+              Unlike earthly combustion which consumes matter into carbonaceous char, the Phoenix cycle operates via catalytic resinous fusion. Plumes synthesize frankincense sap into crystalline filaments capable of enduring 1,400°C without cellular dissipation.
+            </p>
+          </div>
+          <div className="anatomy-card">
+            <span className="plate-num">Monograph 02</span>
+            <h4>Abyssal Barometric Gigantism</h4>
+            <p>
+              The Kraken’s circulatory mechanics rely on hemocyanin complexes pressurized under 3,000 atmospheres. When ascending toward oceanic shoals, expansion of subterranean gas pockets creates the mirage of a rising volcanic reef.
+            </p>
+          </div>
+          <div className="anatomy-card">
+            <span className="plate-num">Monograph 03</span>
+            <h4>Preservation of Non-Corporeal Relics</h4>
+            <p>
+              Relics from creature encounters—such as molted flame quills or chitinous suction rings—are preserved in airtight bell jars lined with sandstone dust, myrrh oil, and dehydrated sea sponge to prevent ontological decay.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Historic Expeditions & Cartographic Atlas */}
+      <section className="folio-section" id="expeditions">
+        <span className="section-tag">Plate III · Historical Cartography & Sightings</span>
+        <h2 className="section-heading">Expeditions to the Edge of the Map</h2>
+        <p className="section-intro">
+          Chronological field records from royal survey fleets, desert caravans, and monastic cartographers who sought eyewitness documentation of legendary entities.
+        </p>
+
+        <div className="expeditions-timeline">
+          <div className="timeline-card">
+            <div className="timeline-date">
+              430 BC
+              <small>Heliopolis, Egypt</small>
+            </div>
+            <div className="timeline-info">
+              <h4>Herodotus & The Sun Priests</h4>
+              <p>
+                The Greek historian inspects gilded temple manuscripts, measuring depictions of the sacred bird and cross-examining temple elders on the 500-year cycle.
+              </p>
+            </div>
+            <span className="timeline-badge">Nile Delta Survey</span>
+          </div>
+
+          <div className="timeline-card">
+            <div className="timeline-date">
+              1180 AD
+              <small>Norwegian Sea</small>
+            </div>
+            <div className="timeline-info">
+              <h4>King Sverre’s Maritime Report</h4>
+              <p>
+                Royal scribes catalog nautical whirlpools off the coast of Trondheim, attributing vanishing merchant caravels to colossal tentacled leviathans.
+              </p>
+            </div>
+            <span className="timeline-badge">Royal Norse Saga</span>
+          </div>
+
+          <div className="timeline-card">
+            <div className="timeline-date">
+              1539 AD
+              <small>Rome & Venice</small>
+            </div>
+            <div className="timeline-info">
+              <h4>The Carta Marina Cartographic Survey</h4>
+              <p>
+                Olaus Magnus engraves the first detailed nautical map of Scandinavia, depicting sea beasts with spouts, island-backs, and crushing tentacles.
+              </p>
+            </div>
+            <span className="timeline-badge">Venetian Engraving</span>
+          </div>
+
+          <div className="timeline-card">
+            <div className="timeline-date">
+              1752 AD
+              <small>Diocese of Bergen</small>
+            </div>
+            <div className="timeline-info">
+              <h4>Bishop Pontoppidan’s Field Dossier</h4>
+              <p>
+                The bishop compiles testimonies from 50+ fishermen, proving the beast is neither serpent nor fish, but a colossal polyp of extraordinary magnitude.
+              </p>
+            </div>
+            <span className="timeline-badge">Natural History</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4: Curatorial Statement & Academy Provenance */}
+      <section className="folio-section" id="curatorial">
+        <span className="section-tag">Plate IV · Archival Provenance</span>
+        <h2 className="section-heading">Department of Curatorial Sciences</h2>
+        <div className="curatorial-box">
+          <div className="curatorial-text">
+            <h3>Conserving the Memory of What Never Was</h3>
+            <p>
+              The <strong>Myth Atlas</strong> is an ongoing academic effort to catalog the living folklore of terrestrial and abyssal organisms. Every 3D specimen in this digital cabinet has been modeled in strict adherence to primary historical accounts, medieval bestiaries, and sailor oaths.
+            </p>
+            <p>
+              Our conservators employ photogrammetric recreation methods alongside historical text analysis, restoring color, scale, and motion to creatures once relegated to marginalia and myths.
+            </p>
+          </div>
+          <div className="curatorial-seal-box">
+            <div className="seal-stamp">
+              ROYAL ACADEMY OF NATURAL CURIOSITIES<br />
+              ARCHIVES OF CRYPTOZOOLOGY
+            </div>
+            <div className="seal-signature">Prof. Alistair Vance, F.R.C.S.</div>
+            <div className="seal-date">Keeper of Rare Specimen Plates · Est. 1884</div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          MUSEUM FOOTER
+          ========================================================= */}
+      <footer className="atlas-footer">
+        <div className="footer-container">
+          <div className="footer-top">
+            <div className="footer-brand">
+              <h2>Myth Atlas</h2>
+              <p>
+                An interactive field guide to creatures that never existed. Produced as an archival specimen plate on warm sandstone paper.
+              </p>
+              <div className="footer-meta">
+                Cryptozoological Archives · Vol. I (Terrestrial & Marine) · Folio Edition 2026
+              </div>
+            </div>
+
+            <div className="footer-col">
+              <h4>Bestiary Orders</h4>
+              <ul>
+                <li><button type="button" onClick={() => { selectCreature(0); scrollToHero(); }}>Fire Birds (Phoenix)</button></li>
+                <li><button type="button" onClick={() => { selectCreature(1); scrollToHero(); }}>Sea Monsters (Kraken)</button></li>
+                <li><button type="button" onClick={() => scrollToSection('bestiary')}>Serpents & Wyrms</button></li>
+                <li><button type="button" onClick={() => scrollToSection('bestiary')}>Chimeras & Hybrids</button></li>
+                <li><button type="button" onClick={() => scrollToSection('bestiary')}>Earth Giants</button></li>
+                <li><button type="button" onClick={() => scrollToSection('bestiary')}>Trickster Spirits</button></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4>Curatorial Folios</h4>
+              <ul>
+                <li><button type="button" onClick={() => scrollToSection('anatomy')}>Comparative Anatomy</button></li>
+                <li><button type="button" onClick={() => scrollToSection('expeditions')}>Expedition Records</button></li>
+                <li><button type="button" onClick={() => scrollToSection('curatorial')}>Archival Provenance</button></li>
+                <li><a href="#hero" onClick={(e) => { e.preventDefault(); scrollToHero(); }}>3D Interactive Stage</a></li>
+                <li><a href="https://fonts.google.com/specimen/Fraunces" target="_blank" rel="noreferrer">Typography: Fraunces & JetBrains</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4>The Antiquarian Gazette</h4>
+              <p style={{ fontSize: '12.5px', color: 'var(--muted)', lineHeight: '1.45', marginBottom: '8px' }}>
+                Receive monthly scholarly monographs, translated manuscripts, and newly catalogued 3D specimen plates.
+              </p>
+              {newsletterSubscribed ? (
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--accent)', marginTop: '10px' }}>
+                  ✦ Monograph dispatched to your inbox.
+                </div>
+              ) : (
+                <form
+                  className="newsletter-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setNewsletterSubscribed(true);
+                  }}
+                >
+                  <input
+                    type="email"
+                    placeholder="curator@academy.edu"
+                    required
+                    aria-label="Email address for Gazette"
+                  />
+                  <button type="submit">Subscribe</button>
+                </form>
+              )}
+            </div>
+          </div>
+
+          <div className="footer-bottom">
+            <div>
+              © 2026 Myth Atlas Project · All rights reserved. Catalogued in Vault IV (Arcana Room).
+            </div>
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+              <a href="#curatorial" onClick={(e) => { e.preventDefault(); scrollToSection('curatorial'); }}>Accession Policy</a>
+              <span>·</span>
+              <a href="#expeditions" onClick={(e) => { e.preventDefault(); scrollToSection('expeditions'); }}>Citation Guide</a>
+              <span>·</span>
+              <button
+                type="button"
+                className="footer-back-to-top"
+                onClick={scrollToHero}
+              >
+                Back to 3D Viewer ↑
+              </button>
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
-

@@ -26,7 +26,8 @@
       --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
       --ease:cubic-bezier(.22,.8,.24,1);
     }
-    .hero[data-light="dusk"] {
+    .hero[data-light="dusk"],
+    [data-theme="dusk"] {
       --bg:#17120d; --panel:#211a13; --line:#3d3225; --ink:#f1e7d6; --muted:#a89880;
       --accent:#e08a4f; --accent-ink:#17120d; --accent-tint:#3b2415; --chip:#2d251b;
       --shadow:0,0,0;
@@ -37,17 +38,21 @@
       margin: 0;
       padding: 0;
     }
+    html {
+      scroll-behavior: smooth;
+    }
     html, body {
-      height: 100%;
+      min-height: 100%;
     }
     body {
       background: var(--bg);
       font-family: var(--sans);
       color: var(--ink);
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      transition: background-color .6s var(--ease);
+      transition: background-color .6s var(--ease), color .6s var(--ease);
     }
     button {
       font: inherit;
@@ -86,6 +91,7 @@
       overflow: hidden;
       background: var(--bg);
       transition: background-color .6s var(--ease), color .6s var(--ease);
+      border-bottom: 1px solid var(--line);
     }
 
     canvas#gl {
@@ -525,6 +531,26 @@
       color: var(--ink);
     }
 
+    .scroll-cue {
+      position: absolute;
+      bottom: 8px;
+      right: 12px;
+      z-index: 6;
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .scroll-cue:hover {
+      color: var(--accent);
+    }
+
     /* 4.3 Right */
     section.info {
       display: grid;
@@ -827,9 +853,138 @@
       margin-top: 1px;
     }
 
+    /* Card Additional Scholarly Sections */
+    .taxonomy-table {
+      margin-top: 10px;
+      display: grid;
+      gap: 6px;
+      font-size: 12px;
+    }
+    .tax-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .tax-k {
+      font-family: var(--mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: .08em;
+    }
+    .tax-v {
+      font-weight: 500;
+      font-family: var(--serif);
+      font-style: italic;
+    }
+
+    .quote-block {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: var(--chip);
+      border-left: 2px solid var(--accent);
+      border-radius: 2px;
+    }
+    .quote-block blockquote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .quote-block cite {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: normal;
+      letter-spacing: .04em;
+    }
+
+    .peculiarities-list {
+      margin-top: 10px;
+      display: grid;
+      gap: 8px;
+      list-style: none;
+    }
+    .peculiarity-item {
+      font-size: 12.5px;
+      line-height: 1.45;
+      padding-left: 14px;
+      position: relative;
+    }
+    .peculiarity-item::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      top: 1px;
+      font-size: 9px;
+      color: var(--accent);
+    }
+    .peculiarity-item strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .sightings-list {
+      margin-top: 10px;
+      display: grid;
+      gap: 8px;
+    }
+    .sighting-row {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 10px;
+      font-size: 12px;
+      line-height: 1.35;
+      align-items: baseline;
+    }
+    .sighting-year {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .sighting-desc {
+      color: var(--ink);
+    }
+
+    .dossier-seal {
+      margin-top: 18px;
+      padding: 12px;
+      border: 1px dashed var(--line);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--panel);
+    }
+    .seal-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex: none;
+    }
+    .seal-text {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
     .closeup-wrap {
-      margin-top: auto;
+      margin-top: 18px;
       padding-top: 16px;
+      border-top: 1px solid var(--line);
     }
     button.closeup {
       display: grid;
@@ -898,7 +1053,390 @@
       pointer-events: none;
     }
 
-    /* 4.6 Responsive */
+    /* Extended Folio Sections */
+    .folio-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 32px;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.2vw, 42px);
+      font-weight: 400;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+    }
+    .section-intro {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 760px;
+      margin-top: 12px;
+    }
+
+    .bestiary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 36px;
+    }
+    .bestiary-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease);
+      position: relative;
+    }
+    .bestiary-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px -6px rgba(var(--shadow), .08);
+    }
+    .bestiary-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .bestiary-card-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--chip);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+    .bestiary-card-count {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
+    .bestiary-card h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -.01em;
+    }
+    .bestiary-card .latin-order {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .bestiary-card p {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-top: 10px;
+      flex: 1;
+    }
+    .bestiary-card-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bestiary-card-samples {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--ink);
+    }
+    .card-action-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .anatomy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 36px;
+    }
+    .anatomy-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 24px;
+      box-shadow: inset 0 0 0 3px var(--panel), inset 0 0 0 4px var(--line);
+    }
+    .anatomy-card h4 {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+    .anatomy-card .plate-num {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .anatomy-card p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .expeditions-timeline {
+      margin-top: 36px;
+      display: grid;
+      gap: 18px;
+    }
+    .timeline-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      border-radius: 3px;
+      padding: 18px 22px;
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+    .timeline-date {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .timeline-date small {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .timeline-info h4 {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .timeline-info p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+    .timeline-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .08em;
+      padding: 4px 8px;
+      border-radius: 2px;
+      background: var(--chip);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .curatorial-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 36px 32px;
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 36px;
+      align-items: center;
+    }
+    .curatorial-text h3 {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+    .curatorial-text p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .curatorial-text p + p {
+      margin-top: 10px;
+    }
+    .curatorial-seal-box {
+      border: 2px dashed var(--line);
+      padding: 24px;
+      text-align: center;
+      border-radius: 3px;
+      background: var(--chip);
+    }
+    .seal-stamp {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .seal-signature {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 17px;
+      margin-top: 8px;
+      color: var(--ink);
+    }
+    .seal-date {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    footer.atlas-footer {
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+      padding: 64px 32px 36px;
+      color: var(--ink);
+      transition: background-color .6s var(--ease), color .6s var(--ease);
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 36px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--line);
+    }
+    .footer-brand h2 {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -.02em;
+    }
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin-top: 10px;
+      max-width: 320px;
+    }
+    .footer-meta {
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .footer-col h4 {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: grid;
+      gap: 9px;
+    }
+    .footer-col a, .footer-col button {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-col a:hover, .footer-col button:hover {
+      color: var(--accent);
+    }
+    .newsletter-form {
+      margin-top: 12px;
+      display: flex;
+      gap: 6px;
+    }
+    .newsletter-form input {
+      flex: 1;
+      height: 34px;
+      padding: 0 10px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--ink);
+      outline: none;
+    }
+    .newsletter-form input:focus {
+      border-color: var(--accent);
+    }
+    .newsletter-form button {
+      background: var(--accent);
+      color: var(--accent-ink);
+      padding: 0 14px;
+      border-radius: 3px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .05em;
+      transition: opacity .2s;
+    }
+    .newsletter-form button:hover {
+      opacity: .9;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-bottom a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .footer-back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .footer-back-to-top:hover {
+      color: var(--accent);
+    }
+
     @media (max-width: 1100px) {
       main.hero#hero {
         grid-template-columns: minmax(0, 1fr) clamp(280px, 36vw, 340px);
@@ -909,6 +1447,12 @@
       section.main {
         padding-left: 20px;
       }
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+      .curatorial-box {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 760px) {
@@ -916,6 +1460,8 @@
         display: flex;
         flex-direction: column;
         grid-template-columns: none;
+        height: auto;
+        min-height: 100vh;
       }
       section.info {
         display: contents;
@@ -945,7 +1491,7 @@
         order: 2;
         flex: 1;
         padding: 10px 14px 6px;
-        min-height: 0;
+        min-height: 520px;
       }
       .tabs {
         gap: 8px;
@@ -998,7 +1544,7 @@
         position: relative;
         z-index: 7;
         flex: 0 0 auto;
-        max-height: 40dvh;
+        max-height: 48dvh;
         border-radius: 10px 10px 0 0;
         border: none;
         border-top: 1px solid var(--line);
@@ -1006,54 +1552,18 @@
         padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
         transition: transform .5s var(--ease), background-color .6s;
       }
-      .detail h1 {
-        font-size: 34px;
-        margin-top: 4px;
+      .timeline-card {
+        grid-template-columns: 1fr;
+        gap: 8px;
       }
-      .detail .tags {
-        margin-top: 10px;
+      .footer-top {
+        grid-template-columns: 1fr;
       }
-      .detail .lede {
-        margin-top: 10px;
-        font-size: 13px;
+      .folio-section {
+        padding: 42px 18px;
       }
-      .detail h2 {
-        margin-top: 12px;
-        padding-top: 10px;
-      }
-      .hero.focus .card {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        transform: translateY(105%);
-      }
-      .hero.focus .top {
-        display: none !important;
-      }
-    }
-
-    @media (max-height: 620px) and (min-width: 761px) {
-      section.main {
-        padding-top: 16px;
-      }
-      aside.side {
-        padding-top: 14px;
-      }
-      ul.nav {
-        margin-top: 12px;
-      }
-      #featImg, #featText {
-        display: none;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01s !important;
-        animation-delay: 0s !important;
-        transition-duration: .01s !important;
-        transition-delay: 0s !important;
+      footer.atlas-footer {
+        padding: 42px 18px 24px;
       }
     }
   </style>
@@ -1106,14 +1616,14 @@
       <small>Cryptozoology · Vol. I</small>
     </div>
     <ul class="nav">
-      <li><button class="nav-btn" type="button"><svg class="ico"><use href="#i-home"/></svg><span class="text">Home</span></button></li>
-      <li><button class="nav-btn" type="button" aria-current="page"><svg class="ico"><use href="#i-star"/></svg><span class="text"><b>Featured</b></span></button></li>
+      <li><button class="nav-btn" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="ico"><use href="#i-home"/></svg><span class="text">Home</span></button></li>
+      <li><button class="nav-btn" type="button" aria-current="page" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="ico"><use href="#i-star"/></svg><span class="text"><b>Featured</b></span></button></li>
       <li><button class="nav-btn" type="button"><svg class="ico"><use href="#i-flame"/></svg><span class="text">Fire birds<small>6 legends</small></span></button></li>
       <li><button class="nav-btn" type="button"><svg class="ico"><use href="#i-wave"/></svg><span class="text">Sea monsters<small>14 legends</small></span></button></li>
-      <li><button class="nav-btn" type="button"><svg class="ico"><use href="#i-claw"/></svg><span class="text">Dragons<small>22 legends</small></span></button></li>
-      <li><button class="nav-btn" type="button"><svg class="ico"><use href="#i-skull"/></svg><span class="text">Chimeras<small>9 legends</small></span></button></li>
-      <li><button class="nav-btn" type="button"><svg class="ico"><use href="#i-peak"/></svg><span class="text">Giants<small>11 legends</small></span></button></li>
-      <li><button class="nav-btn" type="button"><svg class="ico"><use href="#i-mask"/></svg><span class="text">Tricksters<small>8 legends</small></span></button></li>
+      <li><button class="nav-btn" type="button" onclick="document.getElementById('bestiary').scrollIntoView({behavior:'smooth'})"><svg class="ico"><use href="#i-claw"/></svg><span class="text">Dragons<small>22 legends</small></span></button></li>
+      <li><button class="nav-btn" type="button" onclick="document.getElementById('bestiary').scrollIntoView({behavior:'smooth'})"><svg class="ico"><use href="#i-skull"/></svg><span class="text">Chimeras<small>9 legends</small></span></button></li>
+      <li><button class="nav-btn" type="button" onclick="document.getElementById('bestiary').scrollIntoView({behavior:'smooth'})"><svg class="ico"><use href="#i-peak"/></svg><span class="text">Giants<small>11 legends</small></span></button></li>
+      <li><button class="nav-btn" type="button" onclick="document.getElementById('bestiary').scrollIntoView({behavior:'smooth'})"><svg class="ico"><use href="#i-mask"/></svg><span class="text">Tricksters<small>8 legends</small></span></button></li>
     </ul>
     <div class="feature">
       <div class="eyebrow">Featured creature</div>
@@ -1155,6 +1665,8 @@
       </div>
       <div class="scale" id="scale">1 m</div>
       <p class="caption" id="caption"></p>
+
+      <a href="#bestiary" class="scroll-cue">Explore Compendium ↓</a>
     </div>
   </section>
 
@@ -1165,7 +1677,7 @@
         <svg class="ico" width="15" height="15"><use href="#i-search"/></svg>
         <input type="search" placeholder="Search creatures, legends, or regions…" aria-label="Search">
       </label>
-      <button class="iconbtn" type="button" aria-label="Notifications">
+      <button class="iconbtn" type="button" aria-label="Notifications" onclick="alert('Cryptozoology Gazette: Issue 12 is catalogued.')">
         <svg class="ico"><use href="#i-bell"/></svg>
       </button>
       <button class="iconbtn" type="button" aria-label="Account">
@@ -1178,6 +1690,284 @@
   </section>
 </main>
 
+<!-- Extended Folio Sections Below 3D Hero -->
+<section class="folio-section" id="bestiary">
+  <span class="section-tag">Plate I · Systematic Compendium</span>
+  <h2 class="section-heading">The Elemental Orders of Cryptozoology</h2>
+  <p class="section-intro">
+    Before modern taxonomy formalized the animal kingdom, natural philosophers categorized legendary organisms according to elemental residency, barometric affinity, and mythological provenance.
+  </p>
+
+  <div class="bestiary-grid">
+    <div class="bestiary-card">
+      <div class="bestiary-card-top">
+        <div class="bestiary-card-icon"><svg class="ico"><use href="#i-flame"/></svg></div>
+        <span class="bestiary-card-count">6 Legends</span>
+      </div>
+      <span class="section-tag" style="font-size:9px;margin-bottom:2px">Order Pyronithes</span>
+      <h3>Fire Birds & Solar Avians</h3>
+      <div class="latin-order">Aves Pyrogenicae</div>
+      <p>Creatures born of fire, resin, and solar convergence. They reside at the liminal boundary between combustion and life.</p>
+      <div class="bestiary-card-footer">
+        <span class="bestiary-card-samples">Phoenix · Bennu · Simurgh</span>
+        <button class="card-action-btn" type="button" onclick="select(0);window.scrollTo({top:0,behavior:'smooth'})">View 3D Specimen ↑</button>
+      </div>
+    </div>
+
+    <div class="bestiary-card">
+      <div class="bestiary-card-top">
+        <div class="bestiary-card-icon"><svg class="ico"><use href="#i-wave"/></svg></div>
+        <span class="bestiary-card-count">14 Legends</span>
+      </div>
+      <span class="section-tag" style="font-size:9px;margin-bottom:2px">Order Bathytentacula</span>
+      <h3>Abyssal Titans & Sea Monsters</h3>
+      <div class="latin-order">Monstra Benthica</div>
+      <p>Colossal leviathans dwelling in oceanic trenches, disguised as reefs or floating shoals until ships venture close.</p>
+      <div class="bestiary-card-footer">
+        <span class="bestiary-card-samples">Kraken · Hafgufa · Leviathan</span>
+        <button class="card-action-btn" type="button" onclick="select(1);window.scrollTo({top:0,behavior:'smooth'})">View 3D Specimen ↑</button>
+      </div>
+    </div>
+
+    <div class="bestiary-card">
+      <div class="bestiary-card-top">
+        <div class="bestiary-card-icon"><svg class="ico"><use href="#i-claw"/></svg></div>
+        <span class="bestiary-card-count">22 Legends</span>
+      </div>
+      <span class="section-tag" style="font-size:9px;margin-bottom:2px">Order Serpentes Antiqui</span>
+      <h3>Draconic Lineages & Wyrms</h3>
+      <div class="latin-order">Dracones Veteres</div>
+      <p>Primeval serpent-kings that guard planetary veins, hoarded precious metals, and slumber under ancient mountain roots.</p>
+      <div class="bestiary-card-footer">
+        <span class="bestiary-card-samples">Fafnir · Ouroboros · Lindworm</span>
+        <span class="card-action-btn" style="opacity:.6;cursor:default">Archive Monograph</span>
+      </div>
+    </div>
+
+    <div class="bestiary-card">
+      <div class="bestiary-card-top">
+        <div class="bestiary-card-icon"><svg class="ico"><use href="#i-skull"/></svg></div>
+        <span class="bestiary-card-count">9 Legends</span>
+      </div>
+      <span class="section-tag" style="font-size:9px;margin-bottom:2px">Order Mixtura</span>
+      <h3>Chimeras & Compound Beasts</h3>
+      <div class="latin-order">Bestiae Compositae</div>
+      <p>Anomalous biological syntheses combining venomous tails with raptor frames and lion anatomy.</p>
+      <div class="bestiary-card-footer">
+        <span class="bestiary-card-samples">Manticore · Chimera · Griffin</span>
+        <span class="card-action-btn" style="opacity:.6;cursor:default">Archive Monograph</span>
+      </div>
+    </div>
+
+    <div class="bestiary-card">
+      <div class="bestiary-card-top">
+        <div class="bestiary-card-icon"><svg class="ico"><use href="#i-peak"/></svg></div>
+        <span class="bestiary-card-count">11 Legends</span>
+      </div>
+      <span class="section-tag" style="font-size:9px;margin-bottom:2px">Order Titanes</span>
+      <h3>Earth Giants & Lithic Beings</h3>
+      <div class="latin-order">Entia Terrena</div>
+      <p>Colossi whose bone structure mimics granite mountain chains. Their footsteps cause rifts and tremors.</p>
+      <div class="bestiary-card-footer">
+        <span class="bestiary-card-samples">Jotnar · Gogmagog · Cyclopes</span>
+        <span class="card-action-btn" style="opacity:.6;cursor:default">Archive Monograph</span>
+      </div>
+    </div>
+
+    <div class="bestiary-card">
+      <div class="bestiary-card-top">
+        <div class="bestiary-card-icon"><svg class="ico"><use href="#i-mask"/></svg></div>
+        <span class="bestiary-card-count">8 Legends</span>
+      </div>
+      <span class="section-tag" style="font-size:9px;margin-bottom:2px">Order Praestigiae</span>
+      <h3>Tricksters & Metamorphic Spirits</h3>
+      <div class="latin-order">Spiritus Illusorii</div>
+      <p>Creatures of pure liminal deception. They shift bone and fur into human forms to test mortal generosity and wit.</p>
+      <div class="bestiary-card-footer">
+        <span class="bestiary-card-samples">Kitsune · Tanuki · Anansi</span>
+        <span class="card-action-btn" style="opacity:.6;cursor:default">Archive Monograph</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Comparative Anatomy -->
+<section class="folio-section" id="anatomy">
+  <span class="section-tag">Plate II · Comparative Osteology & Physiology</span>
+  <h2 class="section-heading">Anatomy of the Impossible</h2>
+  <p class="section-intro">
+    Observations recorded by antiquarian surgeons, alchemists, and desert naturalists examining legendary physical specimens.
+  </p>
+
+  <div class="anatomy-grid">
+    <div class="anatomy-card">
+      <span class="plate-num">Monograph 01</span>
+      <h4>Thermodynamics of Avian Pyrogenesis</h4>
+      <p>Unlike earthly combustion that creates carbon char, the Phoenix cycle operates via catalytic resinous fusion. Plumes synthesize frankincense sap into crystalline filaments capable of enduring 1,400°C without cellular dissipation.</p>
+    </div>
+    <div class="anatomy-card">
+      <span class="plate-num">Monograph 02</span>
+      <h4>Abyssal Barometric Gigantism</h4>
+      <p>The Kraken’s circulatory mechanics rely on hemocyanin complexes pressurized under 3,000 atmospheres. When ascending toward oceanic shoals, gas pocket expansion creates the illusion of a rising volcanic reef.</p>
+    </div>
+    <div class="anatomy-card">
+      <span class="plate-num">Monograph 03</span>
+      <h4>Preservation of Non-Corporeal Relics</h4>
+      <p>Relics from creature encounters—such as molted flame quills or chitinous suction rings—are preserved in airtight bell jars lined with sandstone dust, myrrh oil, and sea sponge to prevent ontological decay.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Historical Expeditions -->
+<section class="folio-section" id="expeditions">
+  <span class="section-tag">Plate III · Historical Cartography & Sightings</span>
+  <h2 class="section-heading">Expeditions to the Edge of the Map</h2>
+  <p class="section-intro">
+    Chronological field records from royal survey fleets, desert caravans, and monastic cartographers documenting legendary encounters.
+  </p>
+
+  <div class="expeditions-timeline">
+    <div class="timeline-card">
+      <div class="timeline-date">
+        430 BC
+        <small>Heliopolis, Egypt</small>
+      </div>
+      <div class="timeline-info">
+        <h4>Herodotus & The Sun Priests</h4>
+        <p>The Greek historian inspects gilded temple manuscripts, measuring depictions of the sacred bird and cross-examining temple elders on the 500-year cycle.</p>
+      </div>
+      <span class="timeline-badge">Nile Delta Survey</span>
+    </div>
+
+    <div class="timeline-card">
+      <div class="timeline-date">
+        1180 AD
+        <small>Norwegian Sea</small>
+      </div>
+      <div class="timeline-info">
+        <h4>King Sverre’s Maritime Report</h4>
+        <p>Royal scribes catalog nautical whirlpools off Trondheim, attributing vanishing merchant caravels to colossal tentacled leviathans.</p>
+      </div>
+      <span class="timeline-badge">Royal Norse Saga</span>
+    </div>
+
+    <div class="timeline-card">
+      <div class="timeline-date">
+        1539 AD
+        <small>Rome & Venice</small>
+      </div>
+      <div class="timeline-info">
+        <h4>The Carta Marina Cartographic Survey</h4>
+        <p>Olaus Magnus engraves the first detailed nautical map of Scandinavia, depicting sea beasts with spouts, island-backs, and crushing tentacles.</p>
+      </div>
+      <span class="timeline-badge">Venetian Engraving</span>
+    </div>
+
+    <div class="timeline-card">
+      <div class="timeline-date">
+        1752 AD
+        <small>Diocese of Bergen</small>
+      </div>
+      <div class="timeline-info">
+        <h4>Bishop Pontoppidan’s Field Dossier</h4>
+        <p>The bishop compiles testimonies from 50+ fishermen, proving the beast is neither serpent nor fish, but a colossal polyp of extraordinary magnitude.</p>
+      </div>
+      <span class="timeline-badge">Natural History</span>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Curatorial Statement -->
+<section class="folio-section" id="curatorial">
+  <span class="section-tag">Plate IV · Archival Provenance</span>
+  <h2 class="section-heading">Department of Curatorial Sciences</h2>
+  <div class="curatorial-box">
+    <div class="curatorial-text">
+      <h3>Conserving the Memory of What Never Was</h3>
+      <p>
+        The <strong>Myth Atlas</strong> is an ongoing academic effort to catalog the living folklore of terrestrial and abyssal organisms. Every 3D specimen in this digital cabinet has been modeled in strict adherence to primary historical accounts, medieval bestiaries, and sailor oaths.
+      </p>
+      <p>
+        Our conservators employ photogrammetric recreation methods alongside historical text analysis, restoring color, scale, and motion to creatures once relegated to marginalia and myths.
+      </p>
+    </div>
+    <div class="curatorial-seal-box">
+      <div class="seal-stamp">
+        ROYAL ACADEMY OF NATURAL CURIOSITIES<br />
+        ARCHIVES OF CRYPTOZOOLOGY
+      </div>
+      <div class="seal-signature">Prof. Alistair Vance, F.R.C.S.</div>
+      <div class="seal-date">Keeper of Rare Specimen Plates · Est. 1884</div>
+    </div>
+  </div>
+</section>
+
+<!-- Museum Footer -->
+<footer class="atlas-footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h2>Myth Atlas</h2>
+        <p>
+          An interactive field guide to creatures that never existed. Produced as an archival specimen plate on warm sandstone paper.
+        </p>
+        <div class="footer-meta">
+          Cryptozoological Archives · Vol. I (Terrestrial & Marine) · Folio Edition 2026
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Bestiary Orders</h4>
+        <ul>
+          <li><button type="button" onclick="select(0);window.scrollTo({top:0,behavior:'smooth'})">Fire Birds (Phoenix)</button></li>
+          <li><button type="button" onclick="select(1);window.scrollTo({top:0,behavior:'smooth'})">Sea Monsters (Kraken)</button></li>
+          <li><button type="button" onclick="document.getElementById('bestiary').scrollIntoView({behavior:'smooth'})">Serpents & Wyrms</button></li>
+          <li><button type="button" onclick="document.getElementById('bestiary').scrollIntoView({behavior:'smooth'})">Chimeras & Hybrids</button></li>
+          <li><button type="button" onclick="document.getElementById('bestiary').scrollIntoView({behavior:'smooth'})">Earth Giants</button></li>
+          <li><button type="button" onclick="document.getElementById('bestiary').scrollIntoView({behavior:'smooth'})">Trickster Spirits</button></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Curatorial Folios</h4>
+        <ul>
+          <li><button type="button" onclick="document.getElementById('anatomy').scrollIntoView({behavior:'smooth'})">Comparative Anatomy</button></li>
+          <li><button type="button" onclick="document.getElementById('expeditions').scrollIntoView({behavior:'smooth'})">Expedition Records</button></li>
+          <li><button type="button" onclick="document.getElementById('curatorial').scrollIntoView({behavior:'smooth'})">Archival Provenance</button></li>
+          <li><a href="#hero" onclick="window.scrollTo({top:0,behavior:'smooth'})">3D Interactive Stage</a></li>
+          <li><a href="https://fonts.google.com/specimen/Fraunces" target="_blank" rel="noreferrer">Typography: Fraunces & JetBrains</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>The Antiquarian Gazette</h4>
+        <p style="font-size:12.5px;color:var(--muted);line-height:1.45;margin-bottom:8px">
+          Receive monthly scholarly monographs, translated manuscripts, and newly catalogued 3D specimen plates.
+        </p>
+        <form class="newsletter-form" onsubmit="event.preventDefault();this.innerHTML='<div style=\'font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:10px\'>✦ Monograph dispatched to your inbox.</div>'">
+          <input type="email" placeholder="curator@academy.edu" required aria-label="Email address for Gazette">
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        © 2026 Myth Atlas Project · All rights reserved. Catalogued in Vault IV (Arcana Room).
+      </div>
+      <div style="display:flex;gap:16px;align-items:center">
+        <a href="#curatorial" onclick="document.getElementById('curatorial').scrollIntoView({behavior:'smooth'})">Accession Policy</a>
+        <span>·</span>
+        <a href="#expeditions" onclick="document.getElementById('expeditions').scrollIntoView({behavior:'smooth'})">Citation Guide</a>
+        <span>·</span>
+        <button type="button" class="footer-back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+          Back to 3D Viewer ↑
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>
+
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -1185,7 +1975,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-/* 5. Data (verbatim) */
+/* 5. Data (verbatim + enriched scholarly additions) */
 const DINOS = [
   {
     id: 'phoenix', no: 'MA-001', era: [-800, -430], eraLabel: 'Herodotus, 430 BC', scale: '1 m',
@@ -1206,6 +1996,29 @@ const DINOS = [
     closeup: 'Each tail plume ends in a pale gold tip, the only part said to survive the fire.',
     lens: '55% 25%',
     feature: ['A fire you can outlive.', 'Crimson, gold and patient. The bird that refuses to end.'],
+    taxonomy: [
+      ['Kingdom', 'Mythalia Arcana'],
+      ['Order', 'Pyronithes (Fire Avians)'],
+      ['Family', 'Phoenicidae'],
+      ['Preservation', 'Crystalline ash residue in reliquary urn'],
+      ['Threat Class', 'Tier II · Sacred & Solitary']
+    ],
+    quote: {
+      text: 'They have also another sacred bird called the Phoenix, which I myself have not seen, except in pictures... His plumage is partly red and partly golden, while in shape and size he is very nearly like an eagle. He comes once in five hundred years, when his father dies.',
+      author: 'Herodotus',
+      source: 'The Histories, Book II (Euterpe)',
+      year: 'c. 430 BC'
+    },
+    peculiarities: [
+      { title: 'Nidus Incendii', desc: 'Constructs its pyre of cassia, spikenard, and cinnamon twigs, reaching spontaneous thermal equilibrium upon the vernal equinox.' },
+      { title: 'Cinereous Metamorphosis', desc: 'Tissue does not decay; it vitrifies into a golden ovoid core that reconstitutes within three solar cycles.' },
+      { title: 'Cranial Plume Corona', desc: 'Twelve iridescent feathers that refract solar ultraviolet light, producing an optical halo reported by Heliopolitan solar priests.' }
+    ],
+    sightings: [
+      { year: '430 BC', place: 'City of the Sun (Heliopolis)', desc: 'Herodotus inspects temple murals and records priests’ sworn depositions.' },
+      { year: 'AD 34', place: 'Thebaid, Upper Egypt', desc: 'Imperial scouts dispatch parchment to Emperor Tiberius reporting an unnatural red aura over the desert.' },
+      { year: 'AD 800', place: 'Sinai Peninsula', desc: 'Monastic chronicles at St. Catherine record a golden avian ascending from a smoldering acacia grove.' }
+    ]
   },
   {
     id: 'kraken', no: 'MA-002', era: [1180, 1752], eraLabel: 'Pontoppidan, 1752', scale: '10 m',
@@ -1226,6 +2039,29 @@ const DINOS = [
     closeup: 'Suckers the width of a barrel lid, each ringed with a horn like a saw.',
     lens: '30% 45%',
     feature: ['An island with an appetite.', 'Eight arms, two tentacles and a thousand years of sailors’ tales.'],
+    taxonomy: [
+      ['Kingdom', 'Mythalia Arcana'],
+      ['Order', 'Bathytentacula (Abyssal Cephalopods)'],
+      ['Family', 'Architeuthidae Gigantea'],
+      ['Preservation', 'Desiccated sucker denticle segment in brine'],
+      ['Threat Class', 'Tier V · Maritime Cataclysm']
+    ],
+    quote: {
+      text: 'Its back or upper part, which seems to be in appearance about an English mile and a half in circumference, looks at first like a number of small islands surrounded by something that floats and fluctuates like sea-weeds... Here and there a larger rising is observed, like an island.',
+      author: 'Bishop Erik Pontoppidan',
+      source: 'The Natural History of Norway, Part II',
+      year: '1752'
+    },
+    peculiarities: [
+      { title: 'Siphon Vortex Discharge', desc: 'Ejects compressed benthic brine capable of creating whirlpools with a radius exceeding 200 fathoms.' },
+      { title: 'Chitinous Saw-Rings', desc: 'Each sucker holds a serrated horn ring with tensile strength capable of crushing reinforced oak hulls.' },
+      { title: 'Islandic Camouflage', desc: 'Dorsal epidermis mimics basalt rock formations, encrusted with dead barnacles and phosphorescent pelagic algae.' }
+    ],
+    sightings: [
+      { year: '1180', place: 'Off Trondheim, Norway', desc: 'King Sverre of Norway records in royal saga a seafaring terror that swallowed three longships.' },
+      { year: '1539', place: 'Scandinavian Waters', desc: 'Cartographer Olaus Magnus charts the Monstrum Maris Germanici on the historic Carta Marina.' },
+      { year: '1752', place: 'Diocese of Bergen', desc: 'Bishop Pontoppidan interviews fifty whalers and cod fishermen to formalize the species dossier.' }
+    ]
   },
 ];
 
@@ -1469,7 +2305,7 @@ const pointers = new Map();
 let pinchDist = 0;
 
 stage.addEventListener('pointerdown', e => {
-  if (e.target.closest('button, a, input, .rail, .turn')) return;
+  if (e.target.closest('button, a, input, .rail, .turn, .scroll-cue')) return;
   stage.setPointerCapture(e.pointerId);
   pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
@@ -1565,6 +2401,7 @@ function toggleLight() {
   const isDusk = hero.dataset.light === 'dusk';
   const nextMode = isDusk ? 'day' : 'dusk';
   hero.dataset.light = nextMode;
+  document.body.dataset.theme = nextMode;
   document.body.style.background = nextMode === 'dusk' ? '#14170f' : '';
   lightBtn.classList.toggle('on', nextMode === 'dusk');
   lightBtn.setAttribute('aria-pressed', nextMode === 'dusk' ? 'true' : 'false');
@@ -1598,7 +2435,7 @@ function triggerReset() {
 }
 
 stage.addEventListener('dblclick', e => {
-  if (e.target.closest('button, a, input, .rail, .turn')) return;
+  if (e.target.closest('button, a, input, .rail, .turn, .scroll-cue')) return;
   triggerReset();
 });
 
@@ -1663,6 +2500,26 @@ function renderDetailHTML(d) {
     </div>
   `).join('');
 
+  const taxonomyHTML = d.taxonomy.map(([k, v]) => `
+    <div class="tax-row">
+      <span class="tax-k">${k}</span>
+      <span class="tax-v">${v}</span>
+    </div>
+  `).join('');
+
+  const peculiaritiesHTML = d.peculiarities.map(p => `
+    <li class="peculiarity-item">
+      <strong>${p.title}:</strong> ${p.desc}
+    </li>
+  `).join('');
+
+  const sightingsHTML = d.sightings.map(s => `
+    <div class="sighting-row">
+      <span class="sighting-year">${s.year}</span>
+      <span class="sighting-desc"><strong>${s.place}:</strong> ${s.desc}</span>
+    </div>
+  `).join('');
+
   return `
     <div class="eyebrow" style="--i:0">${d.family} · Specimen ${d.no}</div>
     <h1 style="--i:1">${d.name}<em>${d.latin}</em></h1>
@@ -1690,7 +2547,30 @@ function renderDetailHTML(d) {
       <svg class="ico"><use href="#t-reed"/></svg>
       <span>${d.habitat}</span>
     </div>
-    <div class="closeup-wrap" style="--i:9">
+
+    <!-- Enhanced Scholarly Additions -->
+    <h2 style="--i:9">Taxonomic Registry</h2>
+    <div class="taxonomy-table" style="--i:9">
+      ${taxonomyHTML}
+    </div>
+
+    <h2 style="--i:10">Primary Source Testimony</h2>
+    <div class="quote-block" style="--i:10">
+      <blockquote>"${d.quote.text}"</blockquote>
+      <cite>— ${d.quote.author}, ${d.quote.source} (${d.quote.year})</cite>
+    </div>
+
+    <h2 style="--i:11">Anatomical Peculiarities</h2>
+    <ul class="peculiarities-list" style="--i:11">
+      ${peculiaritiesHTML}
+    </ul>
+
+    <h2 style="--i:12">Expedition Records</h2>
+    <div class="sightings-list" style="--i:12">
+      ${sightingsHTML}
+    </div>
+
+    <div class="closeup-wrap" style="--i:13">
       <button class="closeup" id="closeup" aria-pressed="${zoomGoal > 2.2}" type="button">
         <span class="lens" style="background-image:url('${d.image}'); background-position:${d.lens};"></span>
         <span class="closeup-body">
@@ -1699,6 +2579,14 @@ function renderDetailHTML(d) {
         </span>
         <svg class="ico chev"><use href="#i-chev"/></svg>
       </button>
+    </div>
+
+    <div class="dossier-seal" style="--i:14">
+      <div class="seal-icon">✦</div>
+      <div class="seal-text">
+        Folio Registry No. ${d.no}<br />
+        Verified by the Royal Academy of Cryptozoological Research
+      </div>
     </div>
   `;
 }
@@ -1783,6 +2671,7 @@ function select(i) {
     stage.classList.remove('switching');
   });
 }
+window.select = select;
 
 /* Tabs creation & keyboard roving tabindex */
 tabsEl.innerHTML = DINOS.map((d, idx) => `
@@ -1844,8 +2733,10 @@ navButtons.forEach(btn => {
     const text = btn.textContent.toLowerCase();
     if (text.includes('fire birds') || text.includes('phoenix')) {
       select(0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (text.includes('sea monsters') || text.includes('kraken')) {
       select(1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   });
 });
@@ -1924,7 +2815,6 @@ function loop(now) {
   const DUR = reducedMotion ? 1 : 780;
 
   if (anim) {
-    // Outgoing model
     if (anim.from >= 0) {
       const tOut = (now - anim.t0) / (DUR * 0.6);
       if (tOut < 1) {
@@ -1942,7 +2832,6 @@ function loop(now) {
       }
     }
 
-    // Incoming model
     if (anim.to >= 0) {
       const tIn = (now - anim.t1) / DUR;
       if (tIn < 1) {
@@ -1987,10 +2876,8 @@ loadCreature(0).then(() => {
   loaderEl.classList.remove('show');
   rigs[0].spin.quaternion.copy(rigs[0].home);
   anim = { from: -1, to: 0, dir: 1, t1: performance.now() };
-  // warm the other model in background
   loadCreature(1);
 });
 </script>
 </body>
 </html>
-

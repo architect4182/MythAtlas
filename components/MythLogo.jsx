@@ -172,3 +172,4 @@ export default function MythLogo({ size = 32, className = '', variant = 'seal' }
     </svg>
   );
 }
+

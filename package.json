@@ -1,0 +1,9 @@
+{
+  "name": "myth-atlas",
+  "version": "1.0.0",
+  "description": "Interactive 3D Creature Field Guide",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
+

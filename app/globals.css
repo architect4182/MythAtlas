@@ -95,13 +95,33 @@ aside.side {
   min-height: 0;
 }
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--serif);
-  font-size: 27px;
+  font-size: 26px;
   font-weight: 400;
   letter-spacing: -.02em;
   font-variation-settings: "opsz" 48;
   white-space: nowrap;
   line-height: 1;
+}
+.brand-logo-wrap {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 4px rgba(var(--shadow), 0.16));
+  transition: transform .35s var(--ease);
+}
+.brand:hover .brand-logo-wrap {
+  transform: rotate(18deg) scale(1.08);
+}
+.brand-copy {
+  display: flex;
+  flex-direction: column;
 }
 .brand small {
   display: block;
@@ -238,6 +258,28 @@ section.main {
   font-size: 9.5px;
   color: var(--muted);
   letter-spacing: .1em;
+}
+.tab-seal {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  opacity: 0.35;
+  transition: opacity .25s var(--ease), color .25s var(--ease), transform .3s var(--ease);
+  pointer-events: none;
+}
+.tab[aria-selected="true"] .tab-seal {
+  opacity: 1;
+  color: var(--accent);
+  transform: rotate(12deg) scale(1.15);
+}
+.tab:hover .tab-seal {
+  opacity: 0.75;
 }
 .tab::after {
   content: '';
@@ -1327,6 +1369,18 @@ footer.atlas-footer {
   font-size: 26px;
   font-weight: 400;
   letter-spacing: -.02em;
+}
+.footer-brand-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer-brand-title h2 {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  margin: 0;
 }
 .footer-brand p {
   font-size: 13px;

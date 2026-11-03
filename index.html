@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Myth Atlas — Featured creatures</title>
   <meta name="description" content="Turn a phoenix and a kraken in your hands. An interactive 3D field guide to creatures that never existed.">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <link rel="alternate icon" href="public/icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -114,13 +116,33 @@
       min-height: 0;
     }
     .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: var(--serif);
-      font-size: 27px;
+      font-size: 26px;
       font-weight: 400;
       letter-spacing: -.02em;
       font-variation-settings: "opsz" 48;
       white-space: nowrap;
       line-height: 1;
+    }
+    .brand-logo-wrap {
+      width: 34px;
+      height: 34px;
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 2px 4px rgba(var(--shadow), 0.16));
+      transition: transform .35s var(--ease);
+    }
+    .brand:hover .brand-logo-wrap {
+      transform: rotate(18deg) scale(1.08);
+    }
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
     }
     .brand small {
       display: block;
@@ -257,6 +279,28 @@
       font-size: 9.5px;
       color: var(--muted);
       letter-spacing: .1em;
+    }
+    .tab-seal {
+      position: absolute;
+      top: 6px;
+      right: 7px;
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      opacity: 0.35;
+      transition: opacity .25s var(--ease), color .25s var(--ease), transform .3s var(--ease);
+      pointer-events: none;
+    }
+    .tab[aria-selected="true"] .tab-seal {
+      opacity: 1;
+      color: var(--accent);
+      transform: rotate(12deg) scale(1.15);
+    }
+    .tab:hover .tab-seal {
+      opacity: 0.75;
     }
     .tab::after {
       content: '';
@@ -1330,11 +1374,17 @@
       padding-bottom: 48px;
       border-bottom: 1px solid var(--line);
     }
-    .footer-brand h2 {
+    .footer-brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-brand-title h2 {
       font-family: var(--serif);
       font-size: 26px;
       font-weight: 400;
       letter-spacing: -.02em;
+      margin: 0;
     }
     .footer-brand p {
       font-size: 13px;
@@ -1571,6 +1621,46 @@
 <body>
 <!-- 9. Icon sprite (verbatim) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-myth-logo" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="30" fill="#b4532a"/>
+    <circle cx="32" cy="32" r="28" fill="none" stroke="#f8f2e6" stroke-width="0.75" stroke-opacity="0.5"/>
+    <circle cx="32" cy="32" r="26.5" fill="none" stroke="#f8f2e6" stroke-width="1.3"/>
+    <circle cx="32" cy="32" r="24.5" fill="none" stroke="#f8f2e6" stroke-width="0.75" stroke-dasharray="1.5 2.2" stroke-opacity="0.85"/>
+    <path d="M32 6.5 L33.2 8.5 L32 9.5 L30.8 8.5 Z" fill="#f8f2e6"/>
+    <path d="M32 57.5 L33.2 55.5 L32 54.5 L30.8 55.5 Z" fill="#f8f2e6"/>
+    <path d="M6.5 32 L8.5 33.2 L9.5 32 L8.5 30.8 Z" fill="#f8f2e6"/>
+    <path d="M57.5 32 L55.5 33.2 L54.5 32 L55.5 30.8 Z" fill="#f8f2e6"/>
+    <path d="M30 23.5 C26 21 19 19 13 17.5 C16 20.5 18 21.5 15.5 22.5 C18.5 24.5 20.5 25.5 17.5 27 C21 28 25 28 29.5 26 Z" fill="#ffffff"/>
+    <path d="M34 23.5 C38 21 45 19 51 17.5 C48 20.5 46 21.5 48.5 22.5 C45.5 24.5 43.5 25.5 46.5 27 C43 28 39 28 34.5 26 Z" fill="#ffffff"/>
+    <path d="M32 17 C30.5 14 29 11.5 31.5 8.5 C33 11 34 12.5 35.5 13.5 C37 11.5 38.5 11 39 12.8 C39.5 14.8 37 16.5 35.5 17 Z" fill="#ffffff"/>
+    <path d="M31 16.5 L36.5 15.5 L34 18.5 Z" fill="#ffffff"/>
+    <path d="M31 49 C24 53 14 50 12.5 41 C11.5 35 17 33 20.5 35.5 C22.5 37 21.5 40 18.5 39 C16 38 14.5 41 16 43.5 C18 46.5 24 47.5 30 44.5 Z" fill="#ffffff"/>
+    <path d="M33 49 C40 53 50 50 51.5 41 C52.5 35 47 33 43.5 35.5 C41.5 37 42.5 40 45.5 39 C48 38 49.5 41 48 43.5 C46 46.5 40 47.5 34 44.5 Z" fill="#ffffff"/>
+    <polygon points="32,22.5 32,32 30.2,30.2" fill="#ecd9bd"/>
+    <polygon points="32,22.5 33.8,30.2 32,32" fill="#ffffff"/>
+    <polygon points="32,41.5 30.2,33.8 32,32" fill="#ffffff"/>
+    <polygon points="32,41.5 32,32 33.8,33.8" fill="#ecd9bd"/>
+    <polygon points="41.5,32 33.8,30.2 32,32" fill="#ecd9bd"/>
+    <polygon points="41.5,32 32,32 33.8,33.8" fill="#ffffff"/>
+    <polygon points="22.5,32 32,32 30.2,30.2" fill="#ffffff"/>
+    <polygon points="22.5,32 30.2,33.8 32,32" fill="#ecd9bd"/>
+    <circle cx="32" cy="32" r="2.2" fill="#ffffff"/>
+    <circle cx="32" cy="32" r="1.2" fill="#b4532a"/>
+  </symbol>
+  <symbol id="i-myth-seal" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="29" stroke="currentColor" stroke-width="1.2" fill="none"/>
+    <circle cx="32" cy="32" r="26" stroke="currentColor" stroke-width="0.8" stroke-dasharray="1.5 2" fill="none"/>
+    <path d="M30 23.5 C26 21 19 19 13 17.5 C16 20.5 18 21.5 15.5 22.5 C18.5 24.5 20.5 25.5 17.5 27 C21 28 25 28 29.5 26 Z" fill="currentColor"/>
+    <path d="M34 23.5 C38 21 45 19 51 17.5 C48 20.5 46 21.5 48.5 22.5 C45.5 24.5 43.5 25.5 46.5 27 C43 28 39 28 34.5 26 Z" fill="currentColor"/>
+    <path d="M32 17 C30.5 14 29 11.5 31.5 8.5 C33 11 34 12.5 35.5 13.5 C37 11.5 38.5 11 39 12.8 C39.5 14.8 37 16.5 35.5 17 Z" fill="currentColor"/>
+    <path d="M31 49 C24 53 14 50 12.5 41 C11.5 35 17 33 20.5 35.5 C22.5 37 21.5 40 18.5 39 C16 38 14.5 41 16 43.5 C18 46.5 24 47.5 30 44.5 Z" fill="currentColor"/>
+    <path d="M33 49 C40 53 50 50 51.5 41 C52.5 35 47 33 43.5 35.5 C41.5 37 42.5 40 45.5 39 C48 38 49.5 41 48 43.5 C46 46.5 40 47.5 34 44.5 Z" fill="currentColor"/>
+    <polygon points="32,23 33.5,30.5 32,32 30.5,30.5" fill="currentColor"/>
+    <polygon points="32,41 33.5,33.5 32,32 30.5,33.5" fill="currentColor"/>
+    <polygon points="41,32 33.5,33.5 32,32 33.5,30.5" fill="currentColor"/>
+    <polygon points="23,32 30.5,33.5 32,32 30.5,30.5" fill="currentColor"/>
+    <circle cx="32" cy="32" r="2" fill="currentColor"/>
+  </symbol>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5V20h-5.5v-5h-5v5H4z"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.8 2.5 5.3 5.7.7-4.2 4 1.1 5.7-5.1-2.8-5.1 2.8L8 13.8l-4.2-4 5.7-.7z"/></symbol>
   <symbol id="i-claw" viewBox="0 0 24 24"><path d="M12 20c-1.5-3-1-7 1.5-10.5M12 20c-3.5-1.5-6-5-6.5-9.5M12 20c3.5-1.5 6-5 6.5-9.5M13.5 9.5 15 4M5.5 10.5 3.5 6M18.5 10.5 20.5 6"/></symbol>
@@ -1612,8 +1702,13 @@
   <!-- 4.1 Sidebar -->
   <aside class="side" aria-label="Atlas sections">
     <div class="brand">
-      Myth Atlas
-      <small>Cryptozoology · Vol. I</small>
+      <span class="brand-logo-wrap" title="Myth Atlas Official Seal">
+        <svg viewBox="0 0 64 64" width="34" height="34"><use href="#i-myth-logo"/></svg>
+      </span>
+      <div class="brand-copy">
+        Myth Atlas
+        <small>Cryptozoology · Vol. I</small>
+      </div>
     </div>
     <ul class="nav">
       <li><button class="nav-btn" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="ico"><use href="#i-home"/></svg><span class="text">Home</span></button></li>
@@ -1907,7 +2002,10 @@
   <div class="footer-container">
     <div class="footer-top">
       <div class="footer-brand">
-        <h2>Myth Atlas</h2>
+        <div class="footer-brand-title">
+          <svg viewBox="0 0 64 64" width="40" height="40"><use href="#i-myth-logo"/></svg>
+          <h2>Myth Atlas</h2>
+        </div>
         <p>
           An interactive field guide to creatures that never existed. Produced as an archival specimen plate on warm sandstone paper.
         </p>
@@ -2676,6 +2774,9 @@ window.select = select;
 /* Tabs creation & keyboard roving tabindex */
 tabsEl.innerHTML = DINOS.map((d, idx) => `
   <button class="tab" id="tab-${d.id}" role="tab" data-no="${String(idx + 1).padStart(2, '0')}" aria-controls="detail" aria-selected="${idx === 0}" tabindex="${idx === 0 ? 0 : -1}" type="button">
+    <span class="tab-seal" aria-hidden="true" title="Specimen Accession Seal">
+      <svg viewBox="0 0 64 64" width="14" height="14"><use href="#i-myth-seal"/></svg>
+    </span>
     <img src="${d.image}" alt="${d.name}" width="58" height="52">
     <b>${d.name}</b>
     <i>${d.latin}</i>

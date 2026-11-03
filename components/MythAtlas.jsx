@@ -7,6 +7,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import IconSprite from './IconSprite';
+import MythLogo from './MythLogo';
 
 /* 5. Data (verbatim + enriched scholarly additions) */
 const DINOS = [
@@ -782,8 +783,13 @@ export default function MythAtlas() {
         {/* 4.1 Sidebar */}
         <aside className="side" aria-label="Atlas sections">
           <div className="brand">
-            Myth Atlas
-            <small>Cryptozoology · Vol. I</small>
+            <span className="brand-logo-wrap" title="Myth Atlas Official Seal">
+              <MythLogo size={34} />
+            </span>
+            <div className="brand-copy">
+              Myth Atlas
+              <small>Cryptozoology · Vol. I</small>
+            </div>
           </div>
           <ul className="nav">
             <li>
@@ -899,6 +905,9 @@ export default function MythAtlas() {
                   }
                 }}
               >
+                <span className="tab-seal" aria-hidden="true" title="Specimen Accession Seal">
+                  <MythLogo size={14} variant="monochrome" />
+                </span>
                 <img src={d.image} alt={d.name} width={58} height={52} />
                 <b>{d.name}</b>
                 <i>{d.latin}</i>
@@ -1369,7 +1378,10 @@ export default function MythAtlas() {
         <div className="footer-container">
           <div className="footer-top">
             <div className="footer-brand">
-              <h2>Myth Atlas</h2>
+              <div className="footer-brand-title">
+                <MythLogo size={40} />
+                <h2>Myth Atlas</h2>
+              </div>
               <p>
                 An interactive field guide to creatures that never existed. Produced as an archival specimen plate on warm sandstone paper.
               </p>
